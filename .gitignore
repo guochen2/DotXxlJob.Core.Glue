@@ -1,0 +1,8 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs
+/src/DotXxlJob.Core.Glue/bin/Debug
+/src/DotXxlJob.Core.Glue/.vs/DotXxlJob.Core.Glue
+/src/DotXxlJob.Core.Glue/obj

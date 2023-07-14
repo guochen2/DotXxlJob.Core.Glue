@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Authors>Guo</Authors>
+    <Company>YFJK</Company>
+    <RepositoryUrl>https://github.com/guochen2/DotXxlJob.Core.Glue</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotXxlJob.Core" Version="2.3.2" />
+  </ItemGroup>
+
+</Project>
