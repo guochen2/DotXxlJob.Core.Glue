@@ -7,10 +7,16 @@
     <Authors>Guo</Authors>
     <Company>YFJK</Company>
     <RepositoryUrl>https://github.com/guochen2/DotXxlJob.Core.Glue</RepositoryUrl>
+    <Version>1.0.1</Version>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DotXxlJob.Core" Version="2.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DotXxlJob\src\DotXxlJob.Core\DotXxlJob.Core.csproj" />
   </ItemGroup>
 
 </Project>

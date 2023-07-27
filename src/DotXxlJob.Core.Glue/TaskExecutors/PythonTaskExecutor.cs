@@ -4,18 +4,21 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using DotXxlJob.Core.Config;
+using DotXxlJob.Core.Glue.Options;
 using DotXxlJob.Core.Model;
 using Microsoft.Extensions.Options;
 
 namespace DotXxlJob.Core.Glue.TaskExecutors
 {
-    public class PythonTaskExecutor : BaseGlueTaskExecutor, ITaskExecutor
+    public class PythonTaskExecutor : ITaskExecutor
     {
         IJobLogger _jobLogger;
-        public PythonTaskExecutor(IJobLogger jobLogger, IOptions<XxlJobExecutorOptions> _options) :
-            base("python", ".py", _options.Value, jobLogger)
+        BaseGlueTaskExecutor _baseGlueTaskExecutor;
+
+        public PythonTaskExecutor(IJobLogger jobLogger, BaseGlueTaskExecutor baseGlueTaskExecutor)
         {
             _jobLogger = jobLogger;
+            _baseGlueTaskExecutor = baseGlueTaskExecutor;
         }
 
         public string GlueType { get; } = "GLUE_PYTHON";
@@ -24,8 +27,8 @@ namespace DotXxlJob.Core.Glue.TaskExecutors
         {
             try
             {
-                await Init(triggerParam);
-                return await Execute(cancellationToken);
+                _baseGlueTaskExecutor.Init("python", ".py", triggerParam);
+                return await _baseGlueTaskExecutor.Execute(cancellationToken);
             }
             catch (Exception ex)
             {

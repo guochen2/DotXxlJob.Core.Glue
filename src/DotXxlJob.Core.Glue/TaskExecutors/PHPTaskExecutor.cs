@@ -4,18 +4,21 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using DotXxlJob.Core.Config;
+using DotXxlJob.Core.Glue.Options;
 using DotXxlJob.Core.Model;
 using Microsoft.Extensions.Options;
 
 namespace DotXxlJob.Core.Glue.TaskExecutors
 {
-    public class PHPTaskExecutor : BaseGlueTaskExecutor, ITaskExecutor
+    public class PHPTaskExecutor : ITaskExecutor
     {
         IJobLogger _jobLogger;
-        public PHPTaskExecutor(IJobLogger jobLogger, IOptions<XxlJobExecutorOptions> _options) :
-            base("php", ".php", _options.Value, jobLogger)
+        BaseGlueTaskExecutor _baseGlueTaskExecutor;
+
+        public PHPTaskExecutor(IJobLogger jobLogger, BaseGlueTaskExecutor baseGlueTaskExecutor)
         {
             _jobLogger = jobLogger;
+            _baseGlueTaskExecutor = baseGlueTaskExecutor;
         }
 
         public string GlueType { get; } = "GLUE_PHP";
@@ -24,8 +27,8 @@ namespace DotXxlJob.Core.Glue.TaskExecutors
         {
             try
             {
-                await Init(triggerParam);
-                return await Execute(cancellationToken);
+                _baseGlueTaskExecutor.Init("php", ".php", triggerParam);
+                return await _baseGlueTaskExecutor.Execute(cancellationToken);
             }
             catch (Exception ex)
             {

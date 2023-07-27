@@ -4,19 +4,21 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using DotXxlJob.Core.Config;
+using DotXxlJob.Core.Glue.Options;
 using DotXxlJob.Core.Model;
 using Microsoft.Extensions.Options;
 
 namespace DotXxlJob.Core.Glue.TaskExecutors
 {
-    public class ShellTaskExecutor : BaseGlueTaskExecutor, ITaskExecutor
+    public class ShellTaskExecutor : ITaskExecutor
     {
         IJobLogger _jobLogger;
+        BaseGlueTaskExecutor _baseGlueTaskExecutor;
 
-        public ShellTaskExecutor(IJobLogger jobLogger, IOptions<XxlJobExecutorOptions> _options) :
-            base("bash", ".sh", _options.Value, jobLogger)
+        public ShellTaskExecutor(IJobLogger jobLogger, BaseGlueTaskExecutor baseGlueTaskExecutor)
         {
             _jobLogger = jobLogger;
+            _baseGlueTaskExecutor = baseGlueTaskExecutor;
         }
 
         public string GlueType { get; } = "GLUE_SHELL";
@@ -25,8 +27,8 @@ namespace DotXxlJob.Core.Glue.TaskExecutors
         {
             try
             {
-                await Init(triggerParam);
-                return await Execute(cancellationToken);
+                _baseGlueTaskExecutor.Init("bash", ".sh", triggerParam);
+                return await _baseGlueTaskExecutor.Execute(cancellationToken);
             }
             catch (Exception ex)
             {

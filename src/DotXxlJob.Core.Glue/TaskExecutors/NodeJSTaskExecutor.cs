@@ -4,18 +4,21 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using DotXxlJob.Core.Config;
+using DotXxlJob.Core.Glue.Options;
 using DotXxlJob.Core.Model;
 using Microsoft.Extensions.Options;
 
 namespace DotXxlJob.Core.Glue.TaskExecutors
 {
-    public class NodeJSTaskExecutor : BaseGlueTaskExecutor, ITaskExecutor
+    public class NodeJSTaskExecutor : ITaskExecutor
     {
         IJobLogger _jobLogger;
-        public NodeJSTaskExecutor(IJobLogger jobLogger, IOptions<XxlJobExecutorOptions> _options) :
-            base("node", ".js", _options.Value, jobLogger)
+        BaseGlueTaskExecutor _baseGlueTaskExecutor;
+
+        public NodeJSTaskExecutor(IJobLogger jobLogger, BaseGlueTaskExecutor baseGlueTaskExecutor)
         {
             _jobLogger = jobLogger;
+            _baseGlueTaskExecutor = baseGlueTaskExecutor;
         }
 
         public string GlueType { get; } = "GLUE_NODEJS";
@@ -24,8 +27,8 @@ namespace DotXxlJob.Core.Glue.TaskExecutors
         {
             try
             {
-                await Init(triggerParam);
-                return await Execute(cancellationToken);
+                _baseGlueTaskExecutor.Init("node", ".js", triggerParam);
+                return await _baseGlueTaskExecutor.Execute(cancellationToken);
             }
             catch (Exception ex)
             {
