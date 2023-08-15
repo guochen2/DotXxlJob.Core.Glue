@@ -7,16 +7,21 @@
     <Authors>Guo</Authors>
     <Company>YFJK</Company>
     <RepositoryUrl>https://github.com/guochen2/DotXxlJob.Core.Glue</RepositoryUrl>
-    <Version>1.0.1</Version>
+    <Version>1.1.1</Version>
     <PackageIcon></PackageIcon>
+	<GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.Compile.Environment" Version="3.2.0" />
+    <PackageReference Include="DotNetCore.Natasha.CSharp" Version="5.2.2.1" />
     <PackageReference Include="DotXxlJob.Core" Version="2.3.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\DotXxlJob\src\DotXxlJob.Core\DotXxlJob.Core.csproj" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.6.0" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.6.0" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.6.0" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.6.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	  <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
